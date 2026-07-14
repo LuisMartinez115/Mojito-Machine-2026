@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coctelera Smart HMI</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #121212; color: white; text-align: center; padding: 20px; }
+        h1 { color: #00adb5; }
+        .btn-coctel { 
+            background: #222831; border: 2px solid #00adb5; color: white; 
+            padding: 20px; margin: 10px; width: 85%; max-width: 300px; 
+            font-size: 18px; border-radius: 10px; cursor: pointer; text-transform: capitalize;
+        }
+        .btn-coctel:active { background: #00adb5; }
+        .token-input { padding: 10px; border-radius: 5px; border: none; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>🍸 PANEL DE CONTROL AUTOMÁTICO</h1>
+    <input type="password" id="token" class="token-input" value="MiCocteleraPrivada2026"><br>
+
+    {% for nombre_trago in lista_cocteles %}
+        <button class="btn-coctel" onclick="servir('{{ nombre_trago }}')">
+            {{ nombre_trago.replace('_', ' ') }} 🍹
+        </button>
+    {% endfor %}
+
+    <script>
+        function servir(nombreCoctel) {
+            const token = document.getElementById('token').value;
+            fetch('/servir', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ coctel: nombreCoctel, token: token })
+            })
+            .then(res => res.json())
+            .then(data => alert(data.mensaje));
+        }
+    </script>
+</body>
+</html>
