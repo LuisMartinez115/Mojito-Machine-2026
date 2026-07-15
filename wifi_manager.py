@@ -70,7 +70,7 @@ if __name__ == '__main__':
     if esta_conectado():
         print("[SISTEMA] Wi-Fi detectado. Arrancando coctelera normal...")
         # 🚀 LANZA EL SEGUNDO SCRIPT AUTOMÁTICAMENTE
-        subprocess.run(["python", "app.py"])
+        subprocess.run(["python3", "app.py"])
     else:
         print("[SISTEMA] Sin red. Levantando Portal Cautivo...")
         try:
